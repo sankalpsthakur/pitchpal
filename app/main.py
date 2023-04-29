@@ -25,8 +25,6 @@ from config import WHISPER_API_KEY, OPENAI_API_KEY, EMAIL_ADDRESS, EMAIL_PASSWOR
 
 openai.api_key = OPENAI_API_KEY
 
-
-
 def openai_response(prompt):
     try:
         model_engine = "text-davinci-002"
@@ -37,8 +35,6 @@ def openai_response(prompt):
     except Exception as e:
         print(e)
         return None
-
-
 
 def main():
     st.title("Pitch Training Assistant")

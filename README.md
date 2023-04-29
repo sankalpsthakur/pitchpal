@@ -14,10 +14,3 @@ pip install -r requirements.txt
 Run the main script by running the following command in the terminal:
 python main.py
 
-Follow the instructions on the screen.
-License
-This project is licensed under the MIT License.
-
-Contact
-If you have any questions or suggestions, please feel free to contact the author at [email protected]
-

@@ -43,7 +43,7 @@ Set up the Google API credentials by following the official guide.
 ## Usage
 Run the application:
 Copy code
-python app.py
+streamlit run main.py
 Open the web application in your browser and upload an audio file containing a pitch presentation.
 The tool will transcribe the audio, perform NLP analysis, and generate feedback using OpenAI models.
 View the generated insights and suggestions in the web application, and receive them via email if desired.

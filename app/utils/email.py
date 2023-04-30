@@ -1,34 +1,25 @@
 import smtplib
-import base_nlp
+import sys
+import os
 
-from config import EMAIL_ADDRESS, EMAIL_PASSWORD
+# Add the parent directory of the current file to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from config import WHISPER_API_KEY, OPENAI_API_KEY, EMAIL_ADDRESS, EMAIL_PASSWORD, SPREADSHEET_ID, sheet_range
+from app.models.annotation import annotate_text
 
 
 def generate_pitch_review(transcript):
-    lang_code = base_nlp.detect_language(transcript)
-    entities = base_nlp.named_entity_recognition(transcript, lang_code)
-    sentiment = base_nlp.sentiment_analysis(transcript, lang_code)
-    speakers = base_nlp.speaker_analysis(transcript, lang_code)
-    keywords = base_nlp.keyword_usage(transcript, lang_code)
-    objections = base_nlp.objection_handling(transcript, lang_code)
+    annotation = annotate_text(transcript)
 
     review = f"""
     Pitch Review:
 
-    Named Entities:
-    {entities}
+    Attributes:
+    {annotation}
 
-    Sentiment Analysis:
-    {'Positive' if sentiment > 0 else 'Negative' if sentiment < 0 else 'Neutral'}
-
-    Speaker Analysis:
-    {speakers}
-
-    Keyword Usage:
-    {keywords}
-
-    Objection Handling:
-    {objections} objections found
+    Suggestions:
+    # saved openai response here
     """
 
     return review

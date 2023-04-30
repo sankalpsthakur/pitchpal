@@ -1,0 +1,8 @@
+ASSEMBLY_AI_API_KEY = "2f24d7d55e6d4e86bede1f7fb5e7ab5b"
+WHISPER_API_KEY = "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"
+OPENAI_API_KEY = "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"
+GOOGLE_SHEETS_CREDENTIALS = "pitchpal/credentials.json"
+EMAIL_ADDRESS = "sankalphimself@gmail.com"
+EMAIL_PASSWORD = "$Avi183285"
+SPREADSHEET_ID = "pitchpal/credentials.json"
+sheet_range = "Sheet1"

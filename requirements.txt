@@ -10,3 +10,6 @@ requests==2.26.0
 smtplib==0.0.0
 spacy==3.2.1
 streamlit==1.2.0
+spacy_stanza
+textblob
+googletrans

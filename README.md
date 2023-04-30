@@ -4,7 +4,7 @@
 PitchPal is an AI-driven sales performance enhancement tool designed to help sales teams improve their pitch presentations and close deals more effectively. By leveraging state-of-the-art NLP models, advanced AI technology, and powerful analytics, PitchPal offers valuable insights into various aspects of your sales pitches, such as talk-to-listen ratio, objection handling, keyword usage, and more. Empower your sales team with the tools and insights they need to optimize their sales strategies, enhance their communication skills, and drive significant growth for your business.
 
 
-# Features
+## Features
 
 Transcribe audio files of pitch presentations
 Perform Named Entity Recognition, Sentiment Analysis, and other NLP tasks
@@ -13,7 +13,7 @@ Store results in Google Sheets and MongoDB for further analysis
 Send pitch analysis and suggestions via email
 Getting Started
 
-# Prerequisites
+## Prerequisites
 To use the Pitch Training Assistant, you will need:
 
 Python 3.7 or later
@@ -23,7 +23,7 @@ Google Drive API
 Google Sheets API
 OpenAI API
 
-# Installation
+## Installation
 Clone the repository:
 bash
 Copy code
@@ -39,14 +39,16 @@ OPENAI_API_KEY = "your-openai-api-key"
 EMAIL_ADDRESS = "your-email-address"
 EMAIL_PASSWORD = "your-email-password"
 Set up the Google API credentials by following the official guide.
-Usage
+
+## Usage
 Run the application:
 Copy code
 python app.py
 Open the web application in your browser and upload an audio file containing a pitch presentation.
 The tool will transcribe the audio, perform NLP analysis, and generate feedback using OpenAI models.
 View the generated insights and suggestions in the web application, and receive them via email if desired.
-Contributing
+
+## Contributing
 
 Contributions to the Pitch Training Assistant project are welcome! To contribute, please follow these steps:
 
@@ -59,7 +61,7 @@ License
 
 This project is licensed under the MIT License. See the LICENSE file for more information.
 
-Acknowledgments
+## Acknowledgments
 
 OpenAI for providing access to their powerful GPT models
 Google Cloud for their Speech-to-Text, Drive, and Sheets APIs

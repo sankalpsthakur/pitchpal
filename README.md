@@ -1,5 +1,5 @@
 
-# PitchPal
+# PitchPal - Pitch Training Assistant
 
 PitchPal is an AI-driven sales performance enhancement tool designed to help sales teams improve their pitch presentations and close deals more effectively. By leveraging state-of-the-art NLP models, advanced AI technology, and powerful analytics, PitchPal offers valuable insights into various aspects of your sales pitches, such as talk-to-listen ratio, objection handling, keyword usage, and more. Empower your sales team with the tools and insights they need to optimize their sales strategies, enhance their communication skills, and drive significant growth for your business.
 

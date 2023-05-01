@@ -1,16 +1,26 @@
-import spacy
-import spacy_stanza
+import spacy as spacy
 import textblob
 from googletrans import Translator
 from collections import Counter
 from transformers import pipeline
 
 
-# Load Spacy multilingual model using Stanza
-nlp_multi = spacy_stanza.load_pipeline("multi")
+# Load Spacy multilingual model
+nlp_multi = spacy.load("en_core_web_sm")
 
-# Load Spacy multilingual model using Stanza.
-nlp_multi = spacy_stanza.load_pipeline("multi")
+
+# Text Classification
+text_classification_model = pipeline("text-classification", model="distilbert-base-uncased")
+# Named Entity Recognition (Semantic Role Labeling)
+semantic_role_labeling_model = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english")
+# Zero-Shot Classification (Topic Modeling)
+topic_modeling_model = pipeline("zero-shot-classification", model="distilbert-base-uncased-mnli")
+# Question Answering (Discourse Analysis)
+discourse_analysis_model = pipeline("question-answering", model="distilbert-base-uncased-distilled-squad")
+# Text Generation (Dialogue Systems)
+dialogue_systems_model = pipeline("text-generation", model="microsoft/DialoGPT-small")
+# Summarization
+summarization_model = pipeline("summarization", model="sshleifer/distilbart-xsum-12-6")
 
 
 def detect_language(text):
@@ -114,15 +124,6 @@ def objection_handling(text):
     keyword_count = keyword_usage(text)
     objection_count = sum([keyword_count[obj] for obj in objections])
     return objection_count
-
-
-# Create pipelines for various tasks
-text_classification_model = pipeline("text-classification", model="textattack/albert-base-v2-rotten_tomatoes")
-semantic_role_labeling_model = pipeline("ner", model="dslim/bert-base-NER")
-topic_modeling_model = pipeline("zero-shot-classification", model="typeform/albert-base-uncased-mnli")
-discourse_analysis_model = pipeline("question-answering", model="bert-large-uncased-whole-word-masking-finetuned-squad")
-dialogue_systems_model = pipeline("text-generation", model="microsoft/DialoGPT-medium")
-summarization_model = pipeline("summarization", model="tuner007/pegasus_paraphrase")
 
 def annotate_text(text):
     # Language Detection

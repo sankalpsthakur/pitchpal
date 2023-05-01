@@ -27,7 +27,7 @@ OpenAI API
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/yourusername/pitch-training-assistant.git
+git clone https://github.com/sankalpsthakur/pitch-training-assistant.git
 Install the required Python packages:
 Copy code
 pip install -r requirements.txt

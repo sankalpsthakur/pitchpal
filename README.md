@@ -11,7 +11,8 @@ Perform Named Entity Recognition, Sentiment Analysis, and other NLP tasks
 Generate valuable feedback and improvement suggestions using OpenAI GPT models
 Store results in Google Sheets and MongoDB for further analysis
 Send pitch analysis and suggestions via email
-Getting Started
+
+# Getting Started
 
 ## Prerequisites
 To use the Pitch Training Assistant, you will need:

@@ -6,6 +6,16 @@ import io
 import openai
 import streamlit as st
 import smtplib
+from dotenv import load_dotenv
+import sys
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Use the environment variable
+api_key = os.environ.get('OPENAI_API_KEY')
+
 
 # Import Google API libraries
 from google.auth.transport.requests import Request
@@ -18,13 +28,17 @@ from googleapiclient.errors import HttpError
 from app.utils.transcribe_audio import transcribe_audio
 from app.utils.email import send_email
 from app.utils import analytics
-from app.models.annotation import detect_language, named_entity_recognition, sentiment_analysis, speaker_analysis, keyword_usage, objection_handling, annotate_text
+# from app.models.annotation import detect_language, named_entity_recognition, sentiment_analysis, speaker_analysis, keyword_usage, objection_handling, annotate_text
 from app.models.openai import openai_response
 
 
-# Import API keys and credentials from config.py
-from config import WHISPER_API_KEY, OPENAI_API_KEY, EMAIL_ADDRESS, EMAIL_PASSWORD, SPREADSHEET_ID, sheet_range
-
+# Import API keys and credentials from environment variables
+WHISPER_API_KEY = os.environ.get('OPENAI_API_KEY')
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+SPREADSHEET_ID  = os.environ.get("SPREADSHEET_ID")
+sheet_range = os.environ.get("sheet_range")
 openai.api_key = OPENAI_API_KEY
 
 import app.utils.analytics
@@ -40,13 +54,15 @@ def main():
 
             st.sidebar.write("Uploading and Saving audio file...")  # Add this line
             audio_file_name = audio_file.name
-            audio_file_drive_id = analytics.save_to_google_drive(audio_file_name, audio_file.read(), audio_file.content_type, "pitchpal/audio")
+            # audio_file_drive_id = analytics.save_to_google_drive(audio_file_name, audio_file.read(), audio_file.content_type, "pitchpal/audio")
+            audio_file_drive_id = 1
 
             st.sidebar.write("Transcribing audio...")  # Add this line
-            transcript = transcribe_audio(audio_file)
+            transcript = transcribe_audio(audio_file, OPENAI_API_KEY)
             
             st.sidebar.write("Saving transcript...")  # Add this line
-            transcript_drive_id = analytics.save_to_google_drive(f"{audio_file_name}_transcript.txt", transcript.encode(), "text/plain", "pitchpal/transcript")
+            # transcript_drive_id = analytics.save_to_google_drive(f"{audio_file_name}_transcript.txt", transcript.encode(), "text/plain", "pitchpal/transcript")
+            transcript_drive_id = 1
 
             st.sidebar.write("Done!")  # Add this line
 
@@ -55,23 +71,21 @@ def main():
         st.write(transcript)
 
         # Perform NLP analysis
-        st.sidebar.write("Performing NLP analysis...")
-        annotation = annotate_text(transcript)
-        st.sidebar.write("NLP analysis completed.")
+        # st.sidebar.write("Performing NLP analysis...")
+        # annotation = annotate_text(transcript)
+        # st.sidebar.write("NLP analysis completed.")
 
         # Prepare and send prompt to OpenAI
         system_prompt = f"You are a pitch training assistant, rate the following pitch out of 10 and suggest an improvement roadmap for the pitch:"
         
-        prompt = openai_response(system_prompt + transcript + json.dumps(annotation, indent=2))
+        prompt = openai_response(system_prompt + transcript) 
+                                 # + json.dumps(annotation, indent=2))
 
         with st.spinner("Generating response from OpenAI..."):
             response = openai_response(prompt)
 
-        st.write("OpenAI Response:")
+        st.write("Feedback on the Call Pitch:")
         st.write(response)
-
-        # Store data in Google Sheets
-        analytics.store_data_in_google_sheets(transcript, response, SPREADSHEET_ID, sheet_range)
 
         # Store data in MongoDB
         user_id = 1  # Replace this with the actual user ID

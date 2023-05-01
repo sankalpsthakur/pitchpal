@@ -14,7 +14,7 @@ text_classification_model = pipeline("text-classification", model="distilbert-ba
 # Named Entity Recognition (Semantic Role Labeling)
 semantic_role_labeling_model = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english")
 # Zero-Shot Classification (Topic Modeling)
-topic_modeling_model = pipeline("zero-shot-classification", model="distilbert-base-uncased-mnli")
+topic_modeling_model = pipeline("zero-shot-classification", model="typeform/distilbert-base-uncased-mnli")
 # Question Answering (Discourse Analysis)
 discourse_analysis_model = pipeline("question-answering", model="distilbert-base-uncased-distilled-squad")
 # Text Generation (Dialogue Systems)

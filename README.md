@@ -57,9 +57,6 @@ Create a new branch with a descriptive name (git checkout -b your-feature)
 Commit your changes (git commit -m 'Add your feature')
 Push the branch to your forked repository (git push origin your-feature)
 Create a Pull Request
-License
-
-This project is licensed under the MIT License. See the LICENSE file for more information.
 
 ## Acknowledgments
 

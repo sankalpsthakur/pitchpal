@@ -16,7 +16,6 @@ load_dotenv()
 # Use the environment variable
 api_key = os.environ.get('OPENAI_API_KEY')
 
-
 # Import Google API libraries
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -28,9 +27,7 @@ from googleapiclient.errors import HttpError
 from app.utils.transcribe_audio import transcribe_audio
 from app.utils.email import send_email
 from app.utils import analytics
-# from app.models.annotation import detect_language, named_entity_recognition, sentiment_analysis, speaker_analysis, keyword_usage, objection_handling, annotate_text
 from app.models.openai import openai_response
-
 
 # Import API keys and credentials from environment variables
 WHISPER_API_KEY = os.environ.get('OPENAI_API_KEY')
@@ -54,14 +51,12 @@ def main():
 
             st.sidebar.write("Uploading and Saving audio file...")  # Add this line
             audio_file_name = audio_file.name
-            # audio_file_drive_id = analytics.save_to_google_drive(audio_file_name, audio_file.read(), audio_file.content_type, "pitchpal/audio")
             audio_file_drive_id = 1
 
             st.sidebar.write("Transcribing audio...")  # Add this line
             transcript = transcribe_audio(audio_file, OPENAI_API_KEY)
             
             st.sidebar.write("Saving transcript...")  # Add this line
-            # transcript_drive_id = analytics.save_to_google_drive(f"{audio_file_name}_transcript.txt", transcript.encode(), "text/plain", "pitchpal/transcript")
             transcript_drive_id = 1
 
             st.sidebar.write("Done!")  # Add this line
@@ -70,16 +65,9 @@ def main():
         st.write("Transcript:")
         st.write(transcript)
 
-        # Perform NLP analysis
-        # st.sidebar.write("Performing NLP analysis...")
-        # annotation = annotate_text(transcript)
-        # st.sidebar.write("NLP analysis completed.")
-
-        # Prepare and send prompt to OpenAI
-        system_prompt = f"You are a pitch training assistant, rate the following pitch out of 10 and suggest an improvement roadmap for the pitch:"
-        
-        prompt = openai_response(system_prompt + transcript) 
-                                 # + json.dumps(annotation, indent=2))
+        system_prompt = f"You are a pitch training assistant, rate the following pitch and suggest an improvement roadmap for the pitch:"
+        transcript="Hello World"
+        prompt = openai_response(system_prompt + json.dumps(transcript))
 
         with st.spinner("Generating response from OpenAI..."):
             response = openai_response(prompt)
@@ -96,6 +84,14 @@ def main():
         if email: 
             send_email("Pitch Training Assistant Results", f"Transcript:\n{transcript}\n\nOpenAI Response:\n{response}", email)
             st.success("Email sent successfully.")
+
+        # Collect feedback from the user
+        feedback_options = ['Like', 'Dislike']
+        feedback = st.radio("Do you like or dislike the AI's response?", feedback_options)
+        if st.button("Submit Feedback"):
+            # Store feedback in the database
+            analytics.store_data_in_mongodb(user_id, audio_file_drive_id, transcript_drive_id, transcript, response, feedback)
+            st.success("Feedback submitted successfully")
 
 if __name__ == "__main__":
     main()
